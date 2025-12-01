@@ -1,0 +1,97 @@
+openapi: "3.0.3"
+info:
+  description: Drug Response Prediction API using XGBoost
+  version: "1.0.0"
+  title: Drug Response Classifier
+  contact:
+    email: "you@example.com"
+
+servers:
+  - url: http://127.0.0.1:8000
+    description: Localhost API
+
+paths:
+  /connection-status:
+    get:
+      summary: Check if API is running
+      responses:
+        '200':
+          description: Successful connection check
+
+  /predict:
+    post:
+      summary: Predict drug response (Responder / Nonresponder)
+      requestBody:
+        description: Input patient features in JSON
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                SEX:
+                  type: string
+                  enum: [Male, Female]
+                  example: Male
+                AGE:
+                  type: integer
+                  example: 42
+                WT:
+                  type: number
+                  example: 70.5
+                HT:
+                  type: number
+                  example: 175
+                BMI:
+                  type: number
+                  example: 23.0
+                DOSE:
+                  type: integer
+                  example: 300
+                ROUTE:
+                  type: string
+                  enum: [Oral, IV]
+                  example: Oral
+                FREQ:
+                  type: string
+                  enum: ["Once daily", "Twice daily"]
+                  example: Once daily
+                TIME_HR:
+                  type: number
+                  example: 2.5
+                CMAX:
+                  type: number
+                  example: 9.1
+                TMAX:
+                  type: number
+                  example: 1.2
+                AUC:
+                  type: number
+                  example: 45.3
+                CL:
+                  type: number
+                  example: 5.8
+                T_HALF:
+                  type: number
+                  example: 6.4
+                BP_SYS:
+                  type: integer
+                  example: 120
+                BP_DIA:
+                  type: integer
+                  example: 80
+                HR:
+                  type: integer
+                  example: 72
+                ALT:
+                  type: number
+                  example: 35.0
+                CREAT:
+                  type: number
+                  example: 1.0
+                GLUCOSE:
+                  type: number
+                  example: 90.5
+      responses:
+        '200':
+          description: Prediction result
